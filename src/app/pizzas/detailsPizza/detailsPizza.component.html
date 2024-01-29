@@ -1,0 +1,47 @@
+<div *ngIf="pizzaToDisplay">
+<div class="col s12 m8 offset-m2">
+  <h2 class="header center">{{ pizzaToDisplay.name }}</h2>
+  <div class="card horizontal hoverable">
+    <div class="card-image">
+      <img [src]="pizzaToDisplay.picture">
+    </div>
+    <div class="card-stacked">
+      <div class="card-content">
+        <table class="bordered striped">
+          <tbody>
+          <tr>
+            <td>Nom</td>
+            <td><strong>{{ pizzaToDisplay.name }}</strong></td>
+          </tr>
+          <tr>
+            <td>Nutriscore</td>
+            <td><strong>{{ pizzaToDisplay.nutriScore }}</strong></td>
+          </tr>
+          <tr>
+            <td>Ingrédients</td>
+            <td>
+              <!-- Utilisation de la pipe créée précédemment pour afficher les ingredientss -->
+              <span *ngFor="let ingredients of pizzaToDisplay.compositions" class="{{ ingredients | pizzaIngredientColor }}">{{ ingredients }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Date de création</td>
+            <!-- Utilisation de la (| date: format ) pour formater les dates a afficher -->
+            <td><em>{{ pizzaToDisplay.created | date:"dd/MM/yyyy" }}</em></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Ajout d'une fonction pour gérer le routour arrière (retour à la liste des pokemons) -->
+      <div class="card-action">
+        <a type="button" class="waves-effect waves-light btn margin-button" (click)="goBack()">Retour</a>
+       <a type="button" class="waves-effect waves-light btn margin-button" (click)="editPizza(pizzaToDisplay)">Editer</a>
+        <a type="button" class="waves-effect waves-light btn margin-button">Supprimer</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<h4 *ngIf="!pizzaToDisplay" class="center" >Aucune Pizza à afficher</h4>
